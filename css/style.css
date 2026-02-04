@@ -1,0 +1,442 @@
+@charset "utf-8";
+
+/* =====================
+   Reset
+===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #c1c0ba;
+  background: #000;
+  line-height: 1.6;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+/* =====================
+   Layout
+===================== */
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+section {
+  margin-top: 80px;
+}
+
+/* =====================
+   Section Titles
+===================== */
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #c1c0ba;
+  padding-left: 16px;
+  margin-bottom: 27px;
+  line-height: 1.3;
+  padding-bottom: 10px;
+}
+
+h2 span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #c1c0ba;
+  margin-left: 6px;
+}
+
+/* =====================
+   HERO
+===================== */
+.hero img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .hero img {
+    max-height: 55vh;
+  }
+}
+
+/* =====================
+   Works
+===================== */
+.work-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+@media (min-width: 1024px) {
+  .work-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
+
+.work {
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 5px;
+}
+
+.work-img-wrapper {
+  overflow: hidden;
+}
+
+.work-img-wrapper img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform 0.5s ease; 
+}
+
+.work-info {
+  width: 100%;
+  padding: 10px;
+}
+
+.work-info h3 {
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.work-info p {
+  font-size: 10px;
+  line-height: 1.3;
+  color: #666;
+}
+
+@media (min-width: 1024px) {
+  .work-info h3 {
+    font-size: 16px;
+  }
+  .work-info p {
+    font-size: 13px;
+  }
+}
+
+/* =====================
+   Hover Effects (PC)
+===================== */
+@media (min-width: 769px) {
+  /* Skill hover */
+  .skill {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .skill:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+  }
+
+  /* Work hover: 이미지 확대 */
+  .work:hover .work-img-wrapper img {
+    transform: scale(1.08);
+  }
+
+  .work:hover {
+    box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+  }
+}
+
+/* =====================
+   Modal
+===================== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 80px 10px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 🔹 상세페이지용 리스트 구조 */
+.modal-media-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-media-list li {
+  width: 100%;
+}
+
+/* 🔹 이미지 / 비디오 공통 */
+.modal-media-list img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.modal-media-list video {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+/* 🔹 비디오 안정화 
+.modal-media-list video {
+  max-height: 80vh;
+  object-fit: contain;
+} */
+
+
+/* 🔹 모달 닫기 버튼 */
+.modal-close {
+  position: fixed;
+  top: 20px;
+  right: 16px;
+  width: 22px;
+  height: 22px;
+  background: rgba(0,0,0,0.65);
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* X 아이콘 직접 그리기 */
+.modal-close::before,
+.modal-close::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 1.1px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.modal-close::before {
+  transform: rotate(45deg);
+}
+
+.modal-close::after {
+  transform: rotate(-45deg);
+}
+
+/* hover (PC) */
+@media (hover: hover) {
+  .modal-close:hover {
+    background: rgba(0,0,0,0.85);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .modal-close {
+    width: 20px;
+    height: 20px;
+    top: 16px;
+    right: 12px;
+  }
+
+  .modal-close::before,
+  .modal-close::after {
+    width: 14px;
+  }
+}
+
+/* 🔹 상단 이동 버튼 */
+.modal-top-btn {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 20;
+}
+
+/* 🔹 모바일: 상단 이동 버튼 더 작게 */
+@media (max-width: 768px) {
+  .modal-top-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    right: 12px;
+    bottom: 16px;
+  }
+}
+
+/* 표시 상태 */
+.modal-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.modal-top-btn:hover {
+  background: rgba(0,0,0,0.9);
+}
+
+
+/* =====================
+   Skills
+===================== */
+.skills {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .skills {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+.skill {
+  background: #fff;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.skill h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.skill h3 span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #666;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.skill p {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #333;
+  margin-top: 4px;
+  letter-spacing: 0.2px;
+}
+
+/* =====================
+   Certificates
+===================== */
+.certificate-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .certificate-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 48px;
+  }
+}
+
+.certificate {
+  display: flex;
+  flex-direction: column;
+  background: #000;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.certificate-img {
+  width: 100%;
+  aspect-ratio: 1.633 / 1;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.certificate-text {
+  padding: 12px 10px;
+}
+
+.certificate-text h3 {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.certificate-text p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+
+/* =====================
+   Responsive Adjustments
+===================== */
+@media (max-width: 768px) {
+  .hero img {
+    height: 55vh;
+  }
+
+  section {
+    margin-top: 60px;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h2 span {
+    font-size: 0.95rem;
+  }
+
+  .work-info h3 {
+    font-size: 14px;
+  }
+
+  .work-info p {
+    font-size: 10px;
+  }
+}
